@@ -146,13 +146,6 @@
       overflow: hidden;
     }
 
-    /* Reducir altura de cards en móviles */
-    @media (max-width: 768px) {
-      .product-card {
-        min-height: 380px !important;
-      }
-    }
-
     ::-webkit-scrollbar {
       width: 6px;
     }
@@ -1705,9 +1698,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           renderProducts(products.filter(p => p.category === cat));
         }
-        
-        // Scroll hacia la sección de productos
-        document.getElementById("productsGrid").scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
 
@@ -1754,10 +1744,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("#mobileMenu .categoryBtn").forEach(btn => {
       btn.addEventListener("click", () => {
         mobileMenu?.classList.add("hidden");
-        // Scroll hacia la sección de productos
-        setTimeout(() => {
-          document.getElementById("productsGrid").scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 300);
       });
     });
 
