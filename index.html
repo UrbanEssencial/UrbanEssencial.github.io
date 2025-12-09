@@ -52,6 +52,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   
   <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+    }
+
     #modalProductImg {
   border-radius: 1rem;
   width: 100%;
@@ -100,7 +106,7 @@
     }
 
     .product-card:hover {
-      transform: translateY(-8px) scale(1.02);
+      transform: translateY(-8px);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
 
@@ -138,6 +144,13 @@
       line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+    }
+
+    /* Reducir altura de cards en móviles */
+    @media (max-width: 768px) {
+      .product-card {
+        min-height: 380px !important;
+      }
     }
 
     ::-webkit-scrollbar {
@@ -1486,7 +1499,6 @@ document.addEventListener("DOMContentLoaded", () => {
           <p class="text-primary-600 text-sm line-clamp-3 mb-4">${escapeHtml(p.description)}</p>
           <div class="flex items-center justify-between mt-auto pt-2">
             <span class="text-accent-600 text-lg font-bold">₡${Number(p.price).toLocaleString()}</span>
-            <button class="btn-primary px-3 py-1 rounded-lg text-sm">Ver más</button>
           </div>
         `;
         productsGrid.appendChild(card);
@@ -1693,6 +1705,9 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           renderProducts(products.filter(p => p.category === cat));
         }
+        
+        // Scroll hacia la sección de productos
+        document.getElementById("productsGrid").scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
 
@@ -1739,6 +1754,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("#mobileMenu .categoryBtn").forEach(btn => {
       btn.addEventListener("click", () => {
         mobileMenu?.classList.add("hidden");
+        // Scroll hacia la sección de productos
+        setTimeout(() => {
+          document.getElementById("productsGrid").scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 300);
       });
     });
 
