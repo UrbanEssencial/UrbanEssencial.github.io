@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UrbanEssential | Tienda online de camisetas</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
+            },
+            accent: {
+              50: '#fef7ee',
+              100: '#fdead7',
+              200: '#fbd5ae',
+              300: '#f7b27a',
+              400: '#C9B27C',
+              500: '#ed6c1f',
+              600: '#de5515',
+              700: '#b93e13',
+              800: '#933317',
+              900: '#792b16',
+            }
+          },
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+            'display': ['Playfair Display', 'serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-in-out',
+            'slide-up': 'slideUp 0.3s ease-out',
+            'scale-in': 'scaleIn 0.2s ease-out',
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    #modalProductImg {
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 400px; /* ancho máximo del modal */
+  height: 400px; /* altura fija para todas las imágenes */
+  object-fit: contain; /* mantiene proporción sin deformar */
+}
+
+
+  
+ .product-card img {
+  width: 100%;
+  max-height: 300px;       /* máximo alto permitido */
+  object-fit: contain;     /* no deformar la imagen */
+  display: block;
+  margin: 0 auto;
+}
+
+
+
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes scaleIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+   .glass-morphism {
+      backdrop-filter: blur(16px) saturate(180%);
+      background: rgba(14, 9, 9, 0.75);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+
+    .product-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #020202 0%, #e4e8ee 100%);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      color: rgb(27, 21, 21);
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(235, 232, 232, 0.25);
+    }
+
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ffffff;
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #000000 0%, #1e1e1f 50%, #333333 100%);
+    }
+
+    .cart-item-enter {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+
+    .cart-item-enter-active {
+      opacity: 1;
+      transform: translateX(0);
+      transition: all 0.3s ease;
+    }
+
+    .cart-item-exit {
+      opacity: 1;
+    }
+
+    .cart-item-exit-active {
+      opacity: 0;
+      transform: translateX(-100px);
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body class="bg-grey-50 font-sans">
+
+<!-- HEADER -->
+<header class="fixed top-0 left-0 right-0 z-50 glass-morphism shadow-lg">
+  <nav class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo solo imagen -->
+<a href="#" id="logo" class="flex items-center">
+ <img src="img/urban (1).png" alt="Logo" class="h-20" style="width: 130px;">
+
+</a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex items-center space-x-12">
+        <nav class="flex space-x-8">
+          <button data-category="all" class="categoryBtn text-white font-medium transition-colors relative group">
+  Todos
+  <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-white transition-all duration-300"></span>
+</button>
+
+<button data-category="camisas" class="categoryBtn text-gray-300 hover:text-white font-medium transition-colors relative group">
+  Camisas
+  <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
+</button>
+
+<button data-category="blusas" class="categoryBtn text-gray-300 hover:text-white font-medium transition-colors relative group">
+  Blusas
+  <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
+</button>
+
+<button data-category="abrigos" class="categoryBtn text-gray-300 hover:text-white font-medium transition-colors relative group">
+  Abrigos
+  <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
+</button>
+
+<button data-category="accesorios" class="categoryBtn text-gray-300 hover:text-white font-medium transition-colors relative group">
+  Accesorios
+  <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
+</button>
+
+<button data-category="jarras" class="categoryBtn text-gray-300 hover:text-white font-medium transition-colors relative group">
+  Jarras
+  <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
+</button>
+
+        </nav>
+      </div>
+
+      
+
+      
+
+    
+          
+
+        <!-- Mobile menu button -->
+        <button id="mobileMenuBtn" class="lg:hidden p-2 text-primary-600 hover:text-primary-900 transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="lg:hidden hidden bg-white/95 backdrop-blur-lg border-t border-primary-200">
+    <div class="px-6 py-6 space-y-6">
+      <!-- Mobile Search -->
+      <div class="relative">
+       
+        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <nav class="space-y-4">
+        <button data-category="all" class="categoryBtn block w-full text-left text-white-900 font-medium transition-colors">Todos</button>
+        <button data-category="camisas" class="categoryBtn block w-full text-left text-white-600 hover:text-primary-900 font-medium transition-colors">Camisas</button>
+        <button data-category="blusas" class="categoryBtn block w-full text-left text-white-600 hover:text-primary-900 font-medium transition-colors">Blusas</button>
+        <button data-category="accesorios" class="categoryBtn block w-full text-left text-white-600 hover:text-primary-900 font-medium transition-colors">Accesorios</button>
+        <button data-category="abrigos" class="categoryBtn block w-full text-left text-white-600 hover:text-primary-900 font-medium transition-colors">Abrigos</button>
+        <button data-category="jarras" class="categoryBtn block w-full text-left text-white-600 hover:text-primary-900 font-medium transition-colors">Jarras</button>
+
+      </nav>
+
+      
+    </div>
+  </div>
+</header>
+
+<!-- Contacto flotante elegante -->
+<div class="fixed bottom-8 right-4 z-50 flex flex-col space-y-4 items-end md:items-end">
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/50670470857" target="_blank"
+     class="flex items-center space-x-3 bg-[#BFA16F] hover:bg-[#D4B873] text-white font-medium px-5 py-3 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12.04 2.002c-5.523 0-10.003 4.48-10.003 10.003 0 1.765.463 3.419 1.268 4.844L2 22l5.357-1.306a9.94 9.94 0 004.683 1.179c5.523 0 10.003-4.48 10.003-10.003s-4.48-10.003-10.003-10.003zm4.566 12.187c-.202-.101-1.192-.588-1.376-.654-.183-.065-.317-.101-.451.101-.135.202-.52.654-.638.787-.117.135-.234.152-.436.051-.202-.101-.85-.313-1.623-.998-.6-.534-1.005-1.192-1.123-1.394-.117-.202-.013-.311.088-.413.09-.09.202-.234.303-.352.101-.117.135-.202.202-.338.067-.135.034-.253-.017-.354-.051-.101-.451-1.084-.618-1.484-.163-.389-.33-.336-.451-.342-.117-.006-.253-.007-.387-.007s-.354.051-.54.253c-.183.202-.698.683-.698 1.664s.715 1.934.815 2.072c.101.135 1.41 2.148 3.414 3.011.477.206.848.329 1.138.421.478.155.913.133 1.257.081.383-.056 1.192-.486 1.362-.956.168-.468.168-.87.117-.956-.05-.088-.183-.135-.384-.236z"/>
+    </svg>
+    <span class="hidden sm:inline-block">WhatsApp</span>
+  </a>
+
+  <!-- Instagram -->
+  <a href="https://www.instagram.com/urban_essential_cr/" target="_blank"
+     class="flex items-center space-x-3 bg-[#BFA16F] hover:bg-[#D4B873] text-white font-medium px-5 py-3 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.056 1.97.24 2.43.403a4.92 4.92 0 011.79 1.137 4.92 4.92 0 011.137 1.79c.163.46.347 1.26.403 2.43.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.403 2.43a4.92 4.92 0 01-1.137 1.79 4.92 4.92 0 01-1.79 1.137c-.46.163-1.26.347-2.43.403-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.97-.24-2.43-.403a4.902 4.902 0 01-2.927-2.927c-.163-.46-.347-1.26-.403-2.43-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.056-1.17.24-1.97.403-2.43a4.902 4.902 0 012.927-2.927c.46-.163 1.26-.347 2.43-.403 1.266-.058 1.646-.07 4.85-.07zm0-2.163C8.736 0 8.332.013 7.052.072 5.773.131 4.663.296 3.675.63a7.075 7.075 0 00-2.59 1.678A7.075 7.075 0 00.63 4.897c-.334.988-.499 2.098-.558 3.377C.013 8.332 0 8.736 0 12c0 3.264.013 3.668.072 4.948.059 1.279.224 2.389.558 3.377a7.075 7.075 0 001.678 2.59 7.075 7.075 0 002.59 1.678c.988.334 2.098.499 3.377.558C8.332 23.987 8.736 24 12 24s3.668-.013 4.948-.072c1.279-.059 2.389-.224 3.377-.558a7.075 7.075 0 002.59-1.678 7.075 7.075 0 001.678-2.59c.334-.988.499-2.098.558-3.377.059-1.28.072-1.684.072-4.948s-.013-3.668-.072-4.948c-.059-1.279-.224-2.389-.558-3.377a7.075 7.075 0 00-1.678-2.59 7.075 7.075 0 00-2.59-1.678c-.988-.334-2.098-.499-3.377-.558C15.668.013 15.264 0 12 0z"/>
+      <path d="M12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998zm6.406-11.845a1.44 1.44 0 11-2.879 0 1.44 1.44 0 012.879 0z"/>
+    </svg>
+    <span class="hidden sm:inline-block">Instagram</span>
+  </a>
+
+</div>
+
+<!-- HERO SECTION -->
+<section class="hero-gradient pt-60 pb-40">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+    <h1 class="font-display text-5xl lg:text-7xl font-bold text-white mb-6 animate-fade-in">
+      Urban<span class="text-accent-400">Essential</span>
+    </h1>
+    <p class="text-xl text-primary-200 mb-8 max-w-2xl mx-auto animate-slide-up">
+      Explora y personaliza tus camisetas segun tus necesidades.
+    </p>
+    <button class="btn-primary px-8 py-4 rounded-xl font-semibold text-lg animate-scale-in text-[#C9B27C]" onclick="document.getElementById('productsGrid').scrollIntoView({behavior: 'smooth'})">
+    Explorar Colección
+    </button>
+
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<main class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+  <!-- Products Grid -->
+  <section class="mb-16">
+    <div class="flex items-center justify-between mb-12">
+      <h2 class="font-display text-3xl font-bold text-primary-900">Nuestra Colección</h2>
+      <div class="flex items-center space-x-4">
+        <span class="text-primary-600 text-sm font-medium">Ordenar por:</span>
+        <select id="sortSelect" class="bg-white border border-primary-200 rounded-lg px-4 py-2 text-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500">
+          <option value="newest">Más Reciente</option>
+          <option value="price-low">Precio: Menor a Mayor</option>
+          <option value="price-high">Precio: Mayor a Menor</option>
+          <option value="popular">Más Popular</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="productsGrid" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+      <!-- Products will be rendered here -->
+    </div>
+  </section>
+
+  <!-- Pagination -->
+  <nav id="pagination" class="flex justify-center items-center space-x-2">
+    <!-- Pagination will be rendered here -->
+  </nav>
+</main>
+
+<!-- PRODUCT MODAL -->
+<div id="productModal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center p-6 z-50">
+  <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[95vh] overflow-y-auto shadow-2xl p-6 relative animate-scale-in">
+    <button id="closeModalBtn" class="absolute top-4 right-4 text-primary-400 hover:text-primary-600 transition-colors text-2xl font-bold">&times;</button>
+
+    <div class="flex flex-col md:flex-row gap-6">
+
+      <!-- Carrusel de imágenes del producto -->
+      <div class="w-full md:w-1/2">
+        <div id="modalCarousel" class="relative">
+          <!-- Contenedor de imágenes -->
+          <div class="overflow-hidden rounded-xl">
+            <div id="carouselInner" class="flex transition-transform duration-300">
+              <!-- Las imágenes se insertan dinámicamente vía JS -->
+            </div>
+          </div>
+
+          <!-- Botones de navegación -->
+          <button id="prevBtn" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md">&lt;</button>
+          <button id="nextBtn" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md">&gt;</button>
+        </div>
+      </div>
+
+      <!-- Info del producto -->
+      <div class="flex flex-col flex-1">
+        <h3 id="modalProductName" class="font-display text-3xl font-bold text-primary-900 mb-2"></h3>
+        <p id="modalProductDescription" class="text-primary-700 mb-4"></p>
+        <div class="flex items-center mb-4 space-x-6">
+          <span id="modalProductPrice" class="text-2xl font-semibold text-accent-600"></span>
+          <span id="modalProductCategory" class="px-3 py-1 rounded-full text-sm font-semibold text-white bg-primary-700 select-none"></span>
+        </div>
+
+        <!-- Material -->
+        <div id="materialSection" class="mb-4">
+          <p class="text-sm font-semibold text-primary-800 mb-1">Material:</p>
+          <p id="modalProductMaterial" class="text-primary-600"></p>
+        </div>
+
+        <!-- Tallas -->
+        <div id="sizesSection" class="mb-4">
+          <p class="text-sm font-semibold text-primary-800 mb-2">Tallas disponibles:</p>
+          <div id="modalProductSizes" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <!-- Colores -->
+        <div id="colorsSection" class="mb-4">
+          <p class="text-sm font-semibold text-primary-800 mb-2">Colores disponibles:</p>
+          <div id="modalProductColors" class="flex flex-wrap gap-2"></div>
+        </div>
+
+       
+
+        <!-- Stock -->
+<div id="stockSection" class="mb-4">
+  <p class="text-sm text-primary-600">
+    <span class="font-semibold">Disponibilidad:</span> 
+    <span id="modalProductStock"></span>
+  </p>
+</div>
+
+<!-- AGREGA ESTO: Diseños disponibles en PDF -->
+<div id="designsSection" class="mb-4">
+  <p class="text-sm font-semibold text-primary-800 mb-2">Diseños disponibles:</p>
+  <div id="modalProductDesigns" class="space-y-2"></div>
+</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT PRINCIPAL -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  try {
+    // ---------- DATA: todos los productos ----------
+    const products = [
+
+    //CAMISETAS HOMBRE
+      {
+        id: 1,
+        name: "Camisetas lisas",
+        description: "Camiseta lisa en tela cómoda y de buena calidad, sin estampados ni detalles adicionales.",
+        price: 3800,
+        category: "camisas",
+        
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "La microfibra es una tela sintética muy fina y ligera hecha principalmente de poliéster. Es suave, fresca, de secado rápido y mantiene su forma con el uso. Permite colores intensos y estampados nítidos, casi no se arruga y ofrece buena resistencia al desgaste.",
+        images: [
+          "img/camisetas/Lh/lisa2.jpeg",
+          "img/camisetas/Lh/lisa1.jpeg",
+          "img/camisetas/Lh/lisa3.jpeg",
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+      {
+        id: 2,
+        name: "Camisetas Estampadas",
+        description: "Camiseta estampada (Los diseños se encuentran en el catalogo en la parte de abajo o consulta por whatsapp) impresión de alta calidad que mantiene el color y la definición. Disponible en varios diseños. Tela ligera, cómoda y de fácil cuidado. (Para mas informacion consulta a nuestro WhatsApp o instagram)",
+        price: 4500,
+        category: "camisas",
+        
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "La microfibra es una tela sintética muy fina y ligera hecha principalmente de poliéster. Es suave, fresca, de secado rápido y mantiene su forma con el uso. Permite colores intensos y estampados nítidos, casi no se arruga y ofrece buena resistencia al desgaste.",
+        images: [
+          "img/camisetas/Eh/estampado1.jpeg",
+          "img/camisetas/Eh/estampado2.jpeg",
+        ],
+        designs: [
+          { name: "Catálogo adulto", url: "pdf/DTF CATALOGO (2).pdf" },
+          { name: "Catálogo niño", url: "pdf/NIÑO DTF (2).pdf" },
+          { name: "Catálogo tipicos", url: "pdf/TIPICO DTF (1.pdf)" },
+         
+        ],
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+       {
+        id: 3,
+        name: "Camisetas personalizadas",
+        description: "“Camiseta personalizada donde creamos exactamente el diseño o imagen que vos tengás en mente, con un precio desde los 5500 colones (Para mas informacion consulta a nuestro whatsapp o instagram).",
+        price: "5500",
+        category: "camisas",
+        
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "Camiseta de microfibra personalizada con materiales como sublimacion, parche, Dtf o termoadhesivo donde podés enviarnos cualquier diseño, imagen o idea, y nosotros la convertimos en una prenda única. Trabajamos con impresión de alta calidad para asegurar un resultado nítido, duradero y exactamente como lo querías",
+        images: [
+          "img/camisetas/Ph/personalizada.jpeg",
+          
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+
+
+
+
+      
+      {
+        id: 4,
+        name: "Camisetas tirantes lisas",
+        description: "Camiseta lisa en tela cómoda y de buena calidad, sin estampados ni detalles adicionales.",
+        price: 3000,
+        category: "camisas",
+        sizes: ["Desde la talla s hasta la XXL de adulto"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "La microfibra es una tela sintética muy fina y ligera hecha principalmente de poliéster. Es suave, fresca, de secado rápido y mantiene su forma con el uso. Permite colores intensos y estampados nítidos, casi no se arruga y ofrece buena resistencia al desgaste.",
+        images: [
+          "img/camisetas/tirantesL/tiranteslisa.jpg",
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+        {
+        id: 5,
+        name: "Camisetas tirantes Estampadas",
+        description: "Camiseta estampada (Los catalogos se encuentran en la parte de abajo o por whatsapp) impresión de alta calidad que mantiene el color y la definición. Disponible en varios diseños. Tela ligera, cómoda y de fácil cuidado. (Para mas informacion consulta a nuestro WhatsApp o instagram)",
+        price: 4000,
+        category: "camisas",
+        sizes: ["Desde la talla s hasta la XXL de adulto"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "La microfibra es una tela sintética muy fina y ligera hecha principalmente de poliéster. Es suave, fresca, de secado rápido y mantiene su forma con el uso. Permite colores intensos y estampados nítidos, casi no se arruga y ofrece buena resistencia al desgaste.",
+        images: [
+          "img/camisetas/tirantesE/tirantesE1.jpg",
+           "img/camisetas/tirantesE/tirantesE.jpg",
+         
+        ],
+        designs: [
+         { name: "Catálogo adulto", url: "pdf/DTF CATALOGO (2).pdf" },
+          { name: "Catálogo niño", url: "pdf/NIÑO DTF (2).pdf" },
+          { name: "Catálogo tipicos", url: "pdf/TIPICO DTF (1.pdf)" },
+        ],
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+    
+       {
+        id: 6,
+        name: "Camisetas tirantes personalizadas",
+        description: "“Camiseta personalizada donde creamos exactamente el diseño o imagen que vos tengás en mente, con un precio desde los 4500 colones (Para mas informacion consulta a nuestro whatsapp o instagram).",
+        price: "4500",
+        category: "camisas",
+        shortDesc: "Camiseta lisa fabricada en material suave y resistente. No lleva estampados ni detalles adicionales, lo que la hace ideal para quienes buscan una prenda básica, cómoda y duradera. Disponible en varios colores y tallas.",
+        sizes: ["Desde la talla s hasta la XXL de adulto"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "Camiseta de microfibra personalizada con materiales como sublimacion, parche, Dtf o termoadhesivo donde podés enviarnos cualquier diseño, imagen o idea, y nosotros la convertimos en una prenda única. Trabajamos con impresión de alta calidad para asegurar un resultado nítido, duradero y exactamente como lo querías",
+        images: [
+          "img/camisetas/tirantesP/tirantesperso.jpg",
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      { 
+      id: 7,
+        name: "Camiseta Argentina",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños y 7950 de adultos.",
+        price: 6950,
+        category: "camisas",
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/argentina1.jpg",
+          "img/deportivas/argentina.jpg",
+          "img/deportivas/argentina2.jpg",
+          "img/deportivas/argentina3.jpg",
+          "img/deportivas/argentinanegra.jpg",
+          "img/deportivas/argentinanegra1.jpg",
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+       { 
+      id: 8,
+        name: "Camiseta Barcelona",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/barcelona.jpg",
+          "img/deportivas/barcelona2.jpg",
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      { 
+      id: 9,
+        name: "Camiseta Boca juniors",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/boca.jpg",
+          "img/deportivas/boca1.jpg",
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      { 
+      id: 10,
+        name: "Camiseta Brasil",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/brasil1.jpg",
+          "img/deportivas/brasil.jpg",
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+
+      { 
+      id: 11,
+        name: "Camiseta Manchester city",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/city1.jpg",
+          "img/deportivas/city.jpg",
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      { 
+      id: 12,
+        name: "Camiseta Al-nassr",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/cr71.jpg",
+          "img/deportivas/cr7.jpg",
+        
+          
+        ],
+        
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      { 
+      id: 13,
+        name: "Camiseta Al-nassr",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/cr7A1.jpg",
+          "img/deportivas/cr7A.jpg",
+        
+          
+        ],
+
+
+        
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      { 
+      id: 14,
+        name: "Camiseta Herediano",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/herediano1.jpg",
+          "img/deportivas/herediano.jpg",
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      { 
+      id: 15,
+        name: "Camiseta Juventus ",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/juventus.jpg",
+          "img/deportivas/juventus1.jpg",
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      { 
+      id: 16,
+        name: "Camiseta Alajuelense",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/liga.jpg",
+          "img/deportivas/liga1.jpg",
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      { 
+      id: 17,
+        name: "Camiseta Real Madrid",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/madrid1.jpg",
+          "img/deportivas/madrid.jpg",
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      { 
+      id: 18,
+        name: "Camiseta Real madrid ",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/madridblanca.jpg",
+        ,
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      { 
+      id: 1,
+        name: "Camiseta Inter de Miami",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/miamiC1.jpg",
+          "img/deportivas/miamiC.jpg",
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      { 
+      id: 20,
+        name: "Camiseta Real Madrid",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/madridnaranja1.jpg",
+          "img/deportivas/madridnaranja.jpg",
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+
+      { 
+      id: 21,
+        name: "Inter de miami",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/miamirosada.jpg",
+          "img/deportivas/miamirosada1.jpg",
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      { 
+      id: 22,
+        name: "Camisa Paris",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+        
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/paris.jpg",
+          "img/deportivas/paris1.jpg",
+        
+          
+        ],
+
+        
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      { 
+      id: 23,
+        name: "Camiseta Saprissa",
+        description: "Camiseta deportiva de tu equipo favorito. Tela fresca, ligera y de secado rápido. Colores vibrantes, sublimadas y de gran durabilidad con un precio de 6950 de niños 7950 de adultos.",
+        price: 6950,
+        category: "camisas", 
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+    
+        material: "Camiseta confeccionada en microfibra de poliéster, con una textura lisa, suave y un ligero brillo que destaca los colores del diseño. Su tela elástica ofrece comodidad en cualquier momento, mientras que su acabado transpirable y de secado rápido mantiene una sensación fresca durante el uso. Es una prenda ligera y comoda",
+        images: [
+          "img/deportivas/saprisaverde.jpg",
+          "img/deportivas/saprisaverde1.jpg",
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+
+       {
+        id: 24,
+        name: "Camisetas manga larga lisas",
+        description: "Camiseta lisa en tela cómoda y de buena calidad, sin estampados ni detalles adicionales.",
+        price: 4500,
+        category: "camisas",
+        
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "La microfibra es una tela sintética muy fina y ligera hecha principalmente de poliéster. Es suave, fresca, de secado rápido y mantiene su forma con el uso. Permite colores intensos y estampados nítidos, casi no se arruga y ofrece buena resistencia al desgaste.",
+        images: [
+          "img/camisetas/mangalarga/1.jpeg",
+          
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+      {
+        id: 25,
+        name: "Camisetas  manga larga Estampadas",
+        description: "Camiseta estampada con impresión de alta calidad que mantiene el color y la definición. Disponible en varios diseños. Tela ligera, cómoda y de fácil cuidado. (Para mas informacion consulta a nuestro WhatsApp o instagram)",
+        price: 5500,
+        category: "camisas",
+        
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "La microfibra es una tela sintética muy fina y ligera hecha principalmente de poliéster. Es suave, fresca, de secado rápido y mantiene su forma con el uso. Permite colores intensos y estampados nítidos, casi no se arruga y ofrece buena resistencia al desgaste.",
+        images: [
+          "img/camisetas/mangalarga/mangalargaestampada.jpeg",
+         
+        ],
+        designs: [
+          { name: "Catálogo Diseños 2025", url: "pdf/1.pdf" },
+          { name: "Diseños Personalizados", url: "pdf/disenos_personalizados.pdf" }
+        ],
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+       {
+        id: 26,
+        name: "Camisetas manga larga personalizadas",
+        description: "“Camiseta personalizada donde creamos exactamente el diseño o imagen que vos tengás en mente, con un precio desde los 6500 colones (Para mas informacion consulta a nuestro whatsapp o instagram).",
+        price: "6500",
+        category: "camisas",
+        
+        sizes: ["Desde la talla 1 de niño hasta la XXL de adulto"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "Camiseta de microfibra personalizada con materiales como sublimacion, parche, Dtf o termoadhesivo donde podés enviarnos cualquier diseño, imagen o idea, y nosotros la convertimos en una prenda única. Trabajamos con impresión de alta calidad para asegurar un resultado nítido, duradero y exactamente como lo querías",
+        images: [
+          "img/camisetas/mangalarga/mangalarga2.jpeg",
+          
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+
+
+
+      // BLUSAS MUJER
+
+      {
+        id: 27,
+        name: "blusas lisas",
+        description: "blusa lisa en tela cómoda y de buena calidad, sin estampados ni detalles adicionales.",
+        price: 3800,
+        category: "blusas",
+        
+        sizes: ["Desde la talla 1 de niña hasta la XXL de adulto"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "La microfibra es una tela sintética muy fina y ligera hecha principalmente de poliéster. Es suave, fresca, de secado rápido y mantiene su forma con el uso. Permite colores intensos y estampados nítidos, casi no se arruga y ofrece buena resistencia al desgaste.",
+        images: [
+          "img/camisetas/blusas/1.jpeg",
+          "img/camisetas/blusas/2.jpeg",
+        
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+      {
+        id: 28,
+        name: "Blusas Estampadas",
+        description: "Blusas estampada (Los catalogos se encuentran abajo o por whatsapp) impresión de alta calidad que mantiene el color y la definición. Disponible en varios diseños. Tela ligera, cómoda y de fácil cuidado. (Para mas informacion consulta a nuestro WhatsApp o instagram)",
+        price: 4500,
+        category: "blusas",
+        
+        sizes: ["Desde la talla 1 de niña hasta la XXL de adulto"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "La microfibra es una tela sintética muy fina y ligera hecha principalmente de poliéster. Es suave, fresca, de secado rápido y mantiene su forma con el uso. Permite colores intensos y estampados nítidos, casi no se arruga y ofrece buena resistencia al desgaste.",
+        images: [
+          "img/camisetas/blusas/3.jpeg",
+          "img/camisetas/blusas/4.jpeg",
+        ],
+        designs: [
+          { name: "Catálogo adulto", url: "pdf/DTF CATALOGO (2).pdf" },
+          { name: "Catálogo niña", url: "pdf/NIÑA DTF (2).pdf" },
+          { name: "Catálogo tipicos", url: "pdf/TIPICO DTF (1.pdf)" },
+        ],
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+       {
+        id: 29,
+        name: "Blusas personalizadas",
+        description: "“Blusa personalizada donde creamos exactamente el diseño o imagen que vos tengás en mente, con un precio desde los 5500 colones (Para mas informacion consulta a nuestro whatsapp o instagram).",
+        price: "5500",
+        category: "blusas",
+        
+        sizes: ["Desde la talla 1 de niña hasta la XXL de adulto"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "Blusa de microfibra personalizada con materiales como sublimacion, parche, Dtf o termoadhesivo donde podés enviarnos cualquier diseño, imagen o idea, y nosotros la convertimos en una prenda única. Trabajamos con impresión de alta calidad para asegurar un resultado nítido, duradero y exactamente como lo querías",
+        images: [
+          "img/camisetas/blusas/perso.jpeg",
+          
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      {
+        id: 30,
+        name: "Minisetas y croptops lisas",
+        description: "blusa lisa en tela cómoda y de buena calidad, sin estampados ni detalles adicionales.",
+        price: 3500,
+        category: "blusas",
+        
+        sizes: ["Desde la talla S de mujer hasta la XL"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "La microfibra es una tela sintética muy fina y ligera hecha principalmente de poliéster. Es suave, fresca, de secado rápido y mantiene su forma con el uso. Permite colores intensos y estampados nítidos, casi no se arruga y ofrece buena resistencia al desgaste.",
+        images: [
+          "img/camisetas/blusas/mini.jpeg",
+          "img/camisetas/blusas/crop.jpeg",
+        
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+      {
+        id: 31,
+        name: "Miniseta y croptops Estampadas",
+        description: "Minisetas y croptops estampada (los catalogos se encuetran abajo o por whatsapp) impresión de alta calidad que mantiene el color y la definición. Disponible en varios diseños. Tela ligera, cómoda y de fácil cuidado. (Para mas informacion consulta a nuestro WhatsApp o instagram)",
+        price: 4500,
+        category: "blusas",
+        
+        sizes: ["Desde la talla S de mujer hasta la XL"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "La microfibra es una tela sintética muy fina y ligera hecha principalmente de poliéster. Es suave, fresca, de secado rápido y mantiene su forma con el uso. Permite colores intensos y estampados nítidos, casi no se arruga y ofrece buena resistencia al desgaste.",
+        images: [
+          "img/camisetas/blusas/miniE.jpeg",
+          "img/camisetas/blusas/cropE.jpeg",
+        ],
+        designs: [
+          { name: "Catálogo adulto", url: "pdf/DTF CATALOGO (2).pdf" },
+          { name: "Catálogo niña", url: "pdf/NIÑA DTF (2).pdf" },
+          { name: "Catálogo tipicos", url: "pdf/TIPICO DTF (1.pdf)" },
+        ],
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+       {
+        id: 32,
+        name: "Miniseta y croptops personalizados",
+        description: "“Blusa personalizada donde creamos exactamente el diseño o imagen que vos tengás en mente, con un precio desde los 4500 colones (Para mas informacion consulta a nuestro whatsapp o instagram).",
+        price: "4500",
+        category: "blusas",
+        
+        sizes: ["Desde la talla S de mujer hasta la L"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#E5D3B3", "#0033A0", "#0A0F24", "#FFD000", "#FF0000", "#8B0000", "#006400", "#013220", "#556B2F", "#F7A8B8"],
+        material: "Blusa de microfibra personalizada con materiales como sublimacion, parche, Dtf o termoadhesivo donde podés enviarnos cualquier diseño, imagen o idea, y nosotros la convertimos en una prenda única. Trabajamos con impresión de alta calidad para asegurar un resultado nítido, duradero y exactamente como lo querías",
+        images: [
+          "img/camisetas/blusas/cropE.jpeg",
+          "img/camisetas/blusas/miniE.jpeg",
+          
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      {
+        id: 33,
+        name: "Sudaderas lisas/estampadas",
+        description: "“Sudadera lisa, estempada o personalizada donde creamos exactamente el diseño o imagen que vos tengás en mente, con un precio desde los 11500 colones (Para mas informacion consulta a nuestro whatsapp o instagram).",
+        price: "11500",
+        category: "abrigos",
+        
+        sizes: ["Desde la talla S hasta la XXL"],
+        colors: ["#FFFFFF", "#000000", "#808080", "#FF0000", "#8B0000", "#0A0F24", "#0033A0", "#006400", "#556B2F"],
+        material: "Sudadera de algodon lisa/estampada o personalizada con materiales como sublimacion, parche, Dtf o termoadhesivo donde podés enviarnos cualquier diseño, imagen o idea, y nosotros la convertimos en una prenda única. Trabajamos con impresión de alta calidad para asegurar un resultado nítido, duradero y exactamente como lo querías",
+        images: [
+          "img/abrigos/abrigo.jpeg",
+          "img/abrigos/abrigo1.jpeg",
+          
+          
+        ],
+
+        designs: [
+          { name: "Catálogo adulto", url: "pdf/DTF CATALOGO (2).pdf" },
+          { name: "Catálogo niña", url: "pdf/NIÑA DTF (2).pdf" },
+          { name: "Catálogo tipicos", url: "pdf/TIPICO DTF (1.pdf)" },
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      {
+        id: 34,
+        name: "Abrigos impermeables", 
+        description: "Abrigo impermeable" ,
+        price: "26500",
+        category: "abrigos",
+        
+        sizes: ["Desde la talla S de hasta la XXL"],
+       
+        images: [
+          "img/abrigos/sueter.jpeg",
+          "img/abrigos/sueter1.jpeg",
+          "img/abrigos/sueter2.jpeg",
+          "img/abrigos/sueter3.jpeg",
+          
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+
+      {
+        id: 35,
+        name: "medias", 
+        description: "calcetas y medias deportivas de varios colores " ,
+        price: "1500",
+        category: "accesorios",
+        
+        sizes: ["Talla unica"],
+        images: [
+          "img/accesorios/m4.jpeg",
+          "img/accesorios/m2.jpeg",
+          "img/accesorios/m3.jpeg",
+          "img/accesorios/m6.jpeg",
+           "img/accesorios/m5.jpeg",
+          "img/accesorios/m1.jpeg",
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      {
+        id: 36,
+        name: "Billeteras de tela", 
+        description: "billeteras de tela (consulte al whatsapp por mas estilos) " ,
+        price: "5500",
+        category: "accesorios",
+        
+ 
+        images: [
+          "img/accesorios/b1.jpeg",
+          "img/accesorios/b2.jpeg",
+          "img/accesorios/b3.jpeg",
+          "img/accesorios/b4.jpeg",
+           "img/accesorios/b5.jpeg",
+          
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+           {
+        id: 37,
+        name: "Billeteras de cuero", 
+        description: "Billeteras de cuero (consulte al whatsapp por mas estilos) " ,
+        price: "8500",
+        category: "accesorios",
+        
+       
+        images: [
+          "img/accesorios/bc3.jpeg",
+          "img/accesorios/bc2.jpeg",
+          "img/accesorios/bc1.jpeg",
+          "img/accesorios/bc4.jpeg",
+           "img/accesorios/bc5.jpeg",
+          
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+
+         {
+        id: 38,
+        name: "Bolsos", 
+        description: "Bolsos (consulte al whatsapp por mas estilos) " ,
+        price: "18500",
+        category: "accesorios",
+        
+       
+        images: [
+          "img/accesorios/bolso1.jpeg",
+          "img/accesorios/bolso2.jpeg",
+          "img/accesorios/bolso3.jpeg",
+          "img/accesorios/bolso4.jpeg",
+           
+          
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      
+
+         {
+        id: 39,
+        name: "Loncheras", 
+        description: "Loncheras (consulte al whatsapp por mas estilos) " ,
+        price: "8500",
+        category: "accesorios",
+        
+       
+        images: [
+          "img/accesorios/l3.jpeg",
+          "img/accesorios/l1.jpeg",
+          "img/accesorios/l2.jpeg",
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+
+        {
+        id: 40,
+        name: "Gorras", 
+        description: "Gorras (consulte al whatsapp por mas estilos) " ,
+        price: "8500",
+        category: "accesorios",
+        
+       
+        images: [
+          "img/accesorios/g1.jpeg",
+          "img/accesorios/g2.jpeg",
+          
+        
+          
+        ],
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+        
+          {
+        id: 41,
+        name: "Bolso", 
+        description: "Bolso(consulte al whatsapp por mas estilos) " ,
+        price: "15500",
+        category: "accesorios",
+        
+       
+        images: [
+          "img/accesorios/bg1.jpeg",
+         
+          
+        
+          
+        ],
+
+
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+        
+       {
+        id: 42,
+        name: "Gorros", 
+        description: "Gorrros(consulte al whatsapp por mas estilos) " ,
+        price: "3000",
+        category: "accesorios",
+        
+       
+        images: [
+          "img/accesorios/gorros1.jpeg",
+          "img/accesorios/gorros2.jpeg",
+          "img/accesorios/gorros3.jpeg",
+          "img/accesorios/gorros4.jpeg",
+          "img/accesorios/gorros5.jpeg",
+         " img/accesorios/gorros6.jpeg",
+         
+          
+        
+          
+        ],
+
+
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+        
+      {
+        id: 43,
+        name: "Jarras",
+        description: "Jarras personalizadas lo que te imagines lo podemos plasmar en una jarra (consulte al whatsapp ) " ,
+        price: "3500",
+        category: "jarras",
+        
+       
+        images: [
+          "img/accesorios/j1.jpeg",
+          "img/accesorios/j2.jpeg",
+          
+         
+          
+        
+          
+        ],
+
+
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+      {
+        id: 44,
+        name: "Jarra magica",
+        description: "Jarras magia personalizadas al ponerle una bebida caliente la jarra mostrara la imagen plasmada, lo que te imagines lo podemos plasmar en una jarra (consulte al whatsapp ) " ,
+        price: "4000",
+        category: "jarras",
+        
+       
+        images: [
+          "img/accesorios/jarra.jpeg",
+          
+          
+         
+          
+        
+          
+        ],
+
+
+      
+        popularity: 50,
+        dateAdded: "2025-11-01"
+      },
+
+        
+      
+
+      
+
+
+        
+      
+
+      
+
+
+
+
+    
+
+
+      
+
+
+
+
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+    ];
+
+
+    
+
+
+
+    // ---------- DOM refs ----------
+    const productsGrid = document.getElementById("productsGrid");
+    const searchInput = document.getElementById("searchInput");
+    const mobileSearchInput = document.getElementById("mobileSearchInput");
+    const sortSelect = document.getElementById("sortSelect");
+    const categoryBtns = Array.from(document.querySelectorAll(".categoryBtn"));
+
+    const productModal = document.getElementById("productModal");
+    const modalImgContainer = document.getElementById("carouselInner");
+    const modalName = document.getElementById("modalProductName");
+    const modalDesc = document.getElementById("modalProductDescription");
+    const modalPrice = document.getElementById("modalProductPrice");
+    const modalCat = document.getElementById("modalProductCategory");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const header = document.querySelector("header");
+    const submenuButtons = document.querySelectorAll("[data-submenu]");
+    const mainMenu = document.getElementById("main-menu");
+
+    let currentIndex = 0;
+    let images = [];
+
+    // Safety check
+    if (!productsGrid) {
+      console.error("No se encontró #productsGrid en el DOM.");
+      return;
+    }
+
+    // ---------- HELPER ----------
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    // ---------- RENDER ----------
+    function renderProducts(list) {
+      productsGrid.innerHTML = "";
+      list.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "product-card bg-white rounded-2xl shadow p-5 cursor-pointer w-full max-w-[360px] min-h-[500px]";
+        card.dataset.id = p.id;
+        card.dataset.name = p.name.toLowerCase();
+        card.dataset.category = p.category;
+        card.dataset.sizes = p.sizes ? p.sizes.join(",") : "ninguna";
+        card.innerHTML = `
+          <div class="w-full h-[320px] flex items-center justify-center bg-gray-100 rounded-xl mb-4 overflow-hidden">
+            <img src="${p.images[0]}" 
+                 alt="${escapeHtml(p.name)}" 
+                 class="w-full h-full object-cover"
+                 onerror="this.src='img/placeholder.jpg'">
+          </div>
+          <h3 class="font-display text-xl font-bold text-primary-900 mb-1">${escapeHtml(p.name)}</h3>
+          <p class="text-primary-600 text-sm line-clamp-3 mb-4">${escapeHtml(p.description)}</p>
+          <div class="flex items-center justify-between mt-auto pt-2">
+            <span class="text-accent-600 text-lg font-bold">₡${Number(p.price).toLocaleString()}</span>
+            <button class="btn-primary px-3 py-1 rounded-lg text-sm">Ver más</button>
+          </div>
+        `;
+        productsGrid.appendChild(card);
+      });
+    }
+
+    // Inicial
+    renderProducts(products);
+
+    // ---------- MODAL & CARRUSEL ----------
+    function openProductModal(prod) {
+      // Información textual
+      if (modalName) modalName.textContent = prod.name || "";
+      if (modalDesc) modalDesc.textContent = prod.description || "";
+      if (modalPrice) modalPrice.textContent = `₡${Number(prod.price).toLocaleString()}`;
+      if (modalCat) modalCat.textContent = (prod.category || "").toUpperCase();
+
+      // Material
+      const materialSection = document.getElementById("materialSection");
+      const modalMaterial = document.getElementById("modalProductMaterial");
+      if (prod.material && modalMaterial) {
+        modalMaterial.textContent = prod.material;
+        if (materialSection) materialSection.style.display = "block";
+      } else {
+        if (materialSection) materialSection.style.display = "none";
+      }
+
+      // Tallas
+      const sizesSection = document.getElementById("sizesSection");
+      const modalSizes = document.getElementById("modalProductSizes");
+      if (prod.sizes && prod.sizes.length > 0 && modalSizes) {
+        modalSizes.innerHTML = "";
+        prod.sizes.forEach(size => {
+          const sizeBtn = document.createElement("button");
+          sizeBtn.className = "px-4 py-2 border-2 border-primary-300 rounded-lg hover:border-primary-600 hover:bg-primary-50 transition-colors font-semibold text-primary-800";
+          sizeBtn.textContent = size;
+          modalSizes.appendChild(sizeBtn);
+        });
+        if (sizesSection) sizesSection.style.display = "block";
+      } else {
+        if (sizesSection) sizesSection.style.display = "none";
+      }
+
+      // Colores
+      const colorsSection = document.getElementById("colorsSection");
+      const modalColors = document.getElementById("modalProductColors");
+      if (prod.colors && prod.colors.length > 0 && modalColors) {
+        modalColors.innerHTML = "";
+        prod.colors.forEach(color => {
+          const colorBtn = document.createElement("button");
+          colorBtn.className = "w-10 h-10 rounded-full border-2 border-gray-300 hover:border-primary-600 transition-all hover:scale-110 shadow-md";
+          colorBtn.style.backgroundColor = color;
+          colorBtn.title = color;
+          modalColors.appendChild(colorBtn);
+        });
+        if (colorsSection) colorsSection.style.display = "block";
+      } else {
+        if (colorsSection) colorsSection.style.display = "none";
+      }
+
+      // Stock
+      const stockSection = document.getElementById("stockSection");
+      const modalStock = document.getElementById("modalProductStock");
+      if (prod.stock !== undefined && modalStock) {
+        modalStock.textContent = prod.stock > 0 ? `${prod.stock} unidades` : "Agotado";
+        modalStock.className = prod.stock > 0 ? "text-green-600 font-semibold" : "text-red-600 font-semibold";
+        if (stockSection) stockSection.style.display = "block";
+      } else {
+        if (stockSection) stockSection.style.display = "none";
+      }
+
+      // Diseños en PDF
+      const designsSection = document.getElementById("designsSection");
+      const modalDesigns = document.getElementById("modalProductDesigns");
+      if (prod.designs && prod.designs.length > 0 && modalDesigns) {
+        modalDesigns.innerHTML = "";
+        prod.designs.forEach(design => {
+          const designLink = document.createElement("a");
+          designLink.href = design.url;
+          designLink.target = "_blank";
+          designLink.className = "flex items-center space-x-2 px-4 py-3 bg-gradient-to-r from-red-50 to-red-100 hover:from-red-100 hover:to-red-200 rounded-lg transition-all duration-300 group border border-red-200";
+          designLink.innerHTML = `
+            <svg class="w-6 h-6 text-red-600 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm font-semibold text-red-700 group-hover:text-red-800">${design.name}</span>
+            <svg class="w-4 h-4 text-red-600 ml-auto group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          `;
+          modalDesigns.appendChild(designLink);
+        });
+        if (designsSection) designsSection.style.display = "block";
+      } else {
+        if (designsSection) designsSection.style.display = "none";
+      }
+
+      // Carrusel de imágenes - IMAGEN MÁS GRANDE
+      images = prod.images || [];
+      currentIndex = 0;
+      if (modalImgContainer) {
+        modalImgContainer.innerHTML = "";
+        images.forEach(src => {
+          // Contenedor wrapper más grande
+          const imgWrapper = document.createElement("div");
+          imgWrapper.className = "flex-shrink-0 w-full h-[600px] md:h-[700px] flex items-center justify-center bg-gray-50";
+          
+          const img = document.createElement("img");
+          img.src = src;
+          img.className = "max-w-full max-h-full object-contain rounded-lg";
+          img.style.maxHeight = "700px"; // Altura máxima más grande
+          img.onerror = function() {
+            this.src = "img/placeholder.jpg";
+          };
+          
+          imgWrapper.appendChild(img);
+          modalImgContainer.appendChild(imgWrapper);
+        });
+        updateCarousel();
+      }
+
+      // Mostrar modal
+      if (productModal) {
+        productModal.classList.remove("hidden");
+        productModal.classList.add("flex");
+        document.body.classList.add("overflow-hidden");
+      }
+    }
+
+    function updateCarousel() {
+      if (!modalImgContainer || images.length === 0) return;
+      const containerWidth = modalImgContainer.parentElement?.offsetWidth || 0;
+      modalImgContainer.style.transform = `translateX(-${currentIndex * containerWidth}px)`;
+    }
+
+    prevBtn?.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (images.length === 0) return;
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      updateCarousel();
+    });
+
+    nextBtn?.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (images.length === 0) return;
+      currentIndex = (currentIndex + 1) % images.length;
+      updateCarousel();
+    });
+
+    // ---------- EVENTOS MODAL ----------
+    productsGrid.addEventListener("click", (e) => {
+      const card = e.target.closest(".product-card");
+      if (!card) return;
+      const id = Number(card.dataset.id);
+      const prod = products.find(x => x.id === id);
+      if (!prod) return;
+      openProductModal(prod);
+    });
+
+    closeModalBtn?.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (productModal) {
+        productModal.classList.add("hidden");
+        productModal.classList.remove("flex");
+        document.body.classList.remove("overflow-hidden");
+      }
+    });
+
+    productModal?.addEventListener("click", (e) => {
+      if (e.target === productModal) {
+        productModal.classList.add("hidden");
+        productModal.classList.remove("flex");
+        document.body.classList.remove("overflow-hidden");
+      }
+    });
+
+    window.addEventListener("resize", updateCarousel);
+
+    // ---------- CATEGORÍAS ----------
+    categoryBtns.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const cat = btn.dataset.category;
+        
+        // Actualizar estilos de botones
+        categoryBtns.forEach(b => {
+          b.classList.remove("text-white");
+          b.classList.add("text-gray-300");
+          const span = b.querySelector("span");
+          if (span) span.classList.remove("w-full");
+        });
+        
+        btn.classList.remove("text-gray-300");
+        btn.classList.add("text-white");
+        const span = btn.querySelector("span");
+        if (span) span.classList.add("w-full");
+        
+        // Filtrar productos
+        if (!cat || cat === "all" || cat === "todos") {
+          renderProducts(products);
+        } else {
+          renderProducts(products.filter(p => p.category === cat));
+        }
+      });
+    });
+
+    // ---------- BUSCADOR ----------
+    function searchProducts(q) {
+      const txt = String(q || "").toLowerCase().trim();
+      if (!txt) return renderProducts(products);
+      renderProducts(products.filter(p => (p.name + " " + p.description).toLowerCase().includes(txt)));
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener("input", e => searchProducts(e.target.value));
+    }
+    
+    if (mobileSearchInput) {
+      mobileSearchInput.addEventListener("input", e => {
+        if (searchInput) searchInput.value = e.target.value;
+        searchProducts(e.target.value);
+      });
+    }
+
+    // ---------- ORDEN ----------
+    sortSelect?.addEventListener("change", () => {
+      const val = sortSelect.value;
+      let copy = [...products];
+      if (val === "price-low") {
+        copy.sort((a, b) => a.price - b.price);
+      } else if (val === "price-high") {
+        copy.sort((a, b) => b.price - a.price);
+      } else if (val === "popular") {
+        copy.sort((a, b) => b.popularity - a.popularity);
+      } else {
+        copy.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+      }
+      renderProducts(copy);
+    });
+
+    // ---------- MENÚ MÓVIL ----------
+    mobileMenuBtn?.addEventListener("click", (e) => {
+      e.preventDefault();
+      mobileMenu?.classList.toggle("hidden");
+    });
+    
+    document.querySelectorAll("#mobileMenu .categoryBtn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        mobileMenu?.classList.add("hidden");
+      });
+    });
+
+    // ---------- HEADER FIJO ----------
+    let scrollTimeout;
+    window.addEventListener("scroll", () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        if (window.scrollY > 20) {
+          header?.classList.add("shadow-lg");
+        } else {
+          header?.classList.remove("shadow-lg");
+        }
+      }, 10);
+    }, { passive: true });
+
+    // ---------- SUBMENÚ ----------
+    if (submenuButtons && submenuButtons.length > 0) {
+      submenuButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          mainMenu?.classList.add("hidden");
+        });
+      });
+    }
+    
+    const closeSubmenuBtns = document.querySelectorAll(".close-submenu");
+    if (closeSubmenuBtns && closeSubmenuBtns.length > 0) {
+      closeSubmenuBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          mainMenu?.classList.remove("hidden");
+        });
+      });
+    }
+
+    // ---------- SCROLL AL TOP AL CARGAR ----------
+    window.scrollTo(0, 0);
+
+    console.log("✅ Página cargada correctamente");
+
+  } catch(err) {
+    console.error("❌ Error en script:", err);
+  }
+});
+</script>
+
+  </body>
+</html>
